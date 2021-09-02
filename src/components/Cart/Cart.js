@@ -1,0 +1,32 @@
+import { useSelector } from "react-redux";
+
+import Card from "../UI/Card";
+import classes from "./Cart.module.css";
+import CartItem from "./CartItem";
+
+const Cart = (props) => {
+  const cartItems = useSelector((state) => state.cart.items);
+
+  return (
+    <Card className={classes.cart}>
+      {(cartItems.length !== 0 && (
+        <ul>
+          {cartItems.map((item) => (
+            <CartItem
+              key={item.id}
+              item={{
+                id: item.id,
+                title: item.name,
+                quantity: item.quantity,
+                total: item.totalPrice,
+                price: item.price,
+              }}
+            />
+          ))}
+        </ul>
+      )) || <h2>Your Shopping Cart Is Empty</h2>}
+    </Card>
+  );
+};
+
+export default Cart;
